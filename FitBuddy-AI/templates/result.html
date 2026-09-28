@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="result-wrap">
+
+
+    <div class="result-head">
+
+        <div>
+
+            <p class="eyebrow">
+                PERSONALIZED PLAN
+            </p>
+
+
+            <h1>
+
+                Hi
+                {{ user.name if user.name else "there" }}
+                👋
+
+            </h1>
+
+
+            <p class="subtitle">
+
+                {{ user.goal|title }}
+
+                •
+                {{ user.intensity|title }}
+                intensity
+
+                • User ID:
+                {{ user.user_id }}
+
+            </p>
+
+        </div>
+
+
+
+        <a
+            href="/"
+            class="btn secondary"
+        >
+            Create another plan
+        </a>
+
+    </div>
+
+
+
+    {% if message %}
+
+    <div class="alert success">
+
+        {{ message }}
+
+    </div>
+
+    {% endif %}
+
+
+
+    <section class="stats">
+
+
+        <div>
+
+            <strong>
+                {{ user.age }}
+            </strong>
+
+            <span>
+                Age
+            </span>
+
+        </div>
+
+
+
+        <div>
+
+            <strong>
+                {{ user.weight }}
+            </strong>
+
+            <span>
+                Weight (kg)
+            </span>
+
+        </div>
+
+
+
+        <div>
+
+            <strong>
+                {{ user.goal|title }}
+            </strong>
+
+            <span>
+                Goal
+            </span>
+
+        </div>
+
+
+
+        <div>
+
+            <strong>
+                {{ user.intensity|title }}
+            </strong>
+
+            <span>
+                Intensity
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+
+    <section class="card">
+
+
+        <div class="section-title">
+
+            <span class="icon">
+                🏋️
+            </span>
+
+            <div>
+
+                <h2>
+
+                    {% if updated %}
+                        Updated 7-Day Plan
+                    {% else %}
+                        Your 7-Day Plan
+                    {% endif %}
+
+                </h2>
+
+                <p>
+                    AI-generated routine
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <pre class="plan">{{ workout_plan }}</pre>
+
+
+    </section>
+
+
+
+    <section class="card tip-card">
+
+
+        <div class="section-title">
+
+            <span class="icon">
+                🥗
+            </span>
+
+            <div>
+
+                <h2>
+                    Nutrition & Recovery Tip
+                </h2>
+
+                <p>
+                    Goal-aligned general guidance
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <p class="tip">
+
+            {{ nutrition_tip }}
+
+        </p>
+
+
+    </section>
+
+
+
+    <section class="card">
+
+
+        <div class="section-title">
+
+            <span class="icon">
+                ✨
+            </span>
+
+            <div>
+
+                <h2>
+                    Refine Your Plan
+                </h2>
+
+                <p>
+                    Tell FitBuddy what you want changed
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <form
+            action="/submit-feedback"
+            method="post"
+        >
+
+
+            <input
+                type="hidden"
+                name="user_id"
+                value="{{ user.user_id }}"
+            >
+
+
+
+            <label>
+
+                Feedback
+
+                <textarea
+                    name="feedback"
+                    rows="4"
+                    maxlength="1500"
+                    required
+                    placeholder="Example: Make the cardio easier and add another recovery day."
+                ></textarea>
+
+            </label>
+
+
+
+            <br>
+
+
+
+            <button
+                class="btn primary"
+                type="submit"
+            >
+
+                Update Plan with AI →
+
+            </button>
+
+
+        </form>
+
+
+    </section>
+
+
+
+    <p class="safety">
+
+        Safety: This app is for general wellness
+        information. It is not a diagnosis or a
+        substitute for advice from a qualified
+        health professional.
+
+    </p>
+
+
+</div>
+
+{% endblock %}

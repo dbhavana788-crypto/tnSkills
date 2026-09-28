@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="result-wrap">
+
+
+    <div class="result-head">
+
+        <div>
+
+            <p class="eyebrow">
+                ADMIN DASHBOARD
+            </p>
+
+            <h1>
+                All FitBuddy Users
+            </h1>
+
+            <p class="subtitle">
+
+                Review stored user profiles and
+                original/updated plans.
+
+            </p>
+
+        </div>
+
+
+
+        <a
+            href="/"
+            class="btn secondary"
+        >
+            Home
+        </a>
+
+    </div>
+
+
+
+    {% if users %}
+
+
+        {% for user in users %}
+
+
+        <section class="card admin-card">
+
+
+            <div class="user-row">
+
+
+                <div>
+
+                    <h2>
+                        {{ user.name }}
+                    </h2>
+
+                    <p>
+
+                        ID:
+                        {{ user.user_id }}
+
+                        •
+
+                        {{ user.goal|title }}
+
+                        •
+
+                        {{ user.intensity|title }}
+
+                    </p>
+
+                </div>
+
+
+                <span class="date">
+
+                    {{ user.created_at.strftime(
+                        "%Y-%m-%d %H:%M"
+                    ) }}
+
+                </span>
+
+
+            </div>
+
+
+
+            <details>
+
+                <summary>
+                    View original plan
+                </summary>
+
+
+                <pre class="plan compact">
+
+{{ user.original_plan }}
+
+                </pre>
+
+            </details>
+
+
+
+            {% if user.updated_plan %}
+
+            <details>
+
+                <summary>
+                    View updated plan
+                </summary>
+
+
+                <pre class="plan compact">
+
+{{ user.updated_plan }}
+
+                </pre>
+
+            </details>
+
+            {% else %}
+
+            <p class="muted">
+
+                No feedback update yet.
+
+            </p>
+
+            {% endif %}
+
+
+        </section>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="card">
+
+            <p>
+                No users stored yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}
